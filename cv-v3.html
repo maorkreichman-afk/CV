@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAOR KREICMAN :: CHARACTER SHEET</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #0a0814;
+      --bg-panel:    #110e25;
+      --bg-dark:     #060410;
+      --gold:        #e8b840;
+      --gold-bright: #fff0a0;
+      --gold-dark:   #5a3f00;
+      --parchment:   #f0e2b0;
+      --parch-dim:   #9a8460;
+      --red:         #e04040;
+      --red-dark:    #500000;
+      --blue:        #2060d8;
+      --blue-light:  #60a0ff;
+      --blue-dark:   #0a1a40;
+      --green:       #30b840;
+      --green-dark:  #083018;
+      --purple:      #9040d0;
+      --purple-lt:   #c080ff;
+      --amber:       #e89020;
+      --teal:        #20c0a8;
+      --white:       #f8f0e0;
+      --gray:        #606080;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(232,184,64,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,184,64,.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: var(--parchment);
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-top: 70px;
+    }
+
+    /* ══════════════════════════════════════════
+       FIXED GAME HUD
+    ══════════════════════════════════════════ */
+    .game-hud {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: var(--bg-dark);
+      border-bottom: 2px solid var(--gold-dark);
+      box-shadow: 0 0 0 1px var(--bg), 0 1px 0 var(--gold), 0 2px 24px rgba(0,0,0,.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 9000;
+      gap: 16px;
+    }
+
+    .hud-left { display: flex; flex-direction: column; gap: 4px; }
+
+    .hud-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .hud-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hud-bar-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--parch-dim);
+      width: 18px;
+      text-align: right;
+    }
+
+    .hud-bar-track {
+      width: 130px;
+      height: 10px;
+      background: #0a0820;
+      border: 1px solid var(--gold-dark);
+      overflow: hidden;
+    }
+
+    .hud-bar-fill { height: 100%; transition: width 1.8s ease; }
+    .hud-bar-fill.hp { background: linear-gradient(90deg, #800000, #e03030, #ff6060); box-shadow: 0 0 6px #e03030; }
+    .hud-bar-fill.mp { background: linear-gradient(90deg, #001080, #2060d0, #60a0ff); box-shadow: 0 0 6px #2060d0; }
+
+    .hud-bar-val {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--parchment);
+      white-space: nowrap;
+    }
+
+    .hud-center { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+
+    .hud-lvl-badge {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--gold-bright);
+      text-shadow: 0 0 12px var(--gold), 0 0 30px rgba(232,184,64,.5), 2px 2px 0 #000;
+      animation: pulse-gold 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-gold {
+      0%, 100% { text-shadow: 0 0 10px var(--gold), 0 0 20px rgba(232,184,64,.3), 2px 2px 0 #000; }
+      50%       { text-shadow: 0 0 22px var(--gold), 0 0 50px rgba(232,184,64,.7), 2px 2px 0 #000; }
+    }
+
+    .hud-xp-track {
+      width: 90px; height: 6px;
+      background: #0a0820;
+      border: 1px solid var(--gold-dark);
+      overflow: hidden;
+    }
+
+    .hud-xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0a3000, #30b000, #60ff40);
+      box-shadow: 0 0 4px #30b000;
+      width: 0;
+      transition: width 2.5s ease;
+    }
+
+    .hud-xp-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 5px;
+      color: var(--gray);
+      text-align: center;
+    }
+
+    .hud-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+
+    .hud-gold-val {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--gold);
+      text-shadow: 0 0 8px rgba(232,184,64,.6);
+    }
+
+    .hud-subinfo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--parch-dim);
+    }
+
+    /* ══════════════════════════════════════════
+       LVLUP POPUP
+    ══════════════════════════════════════════ */
+    .lvlup-popup {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 20px;
+      color: var(--gold-bright);
+      text-shadow: 0 0 20px var(--gold), 0 0 50px rgba(232,184,64,.8), 3px 3px 0 #000;
+      animation: lvlup-anim 3.5s forwards;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    @keyframes lvlup-anim {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(20px) scale(.8); }
+      15%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.25); }
+      35%  { transform: translateX(-50%) translateY(0) scale(1); }
+      75%  { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(1); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-80px) scale(.9); }
+    }
+
+    /* ══════════════════════════════════════════
+       CONTAINER
+    ══════════════════════════════════════════ */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+
+    /* ══════════════════════════════════════════
+       RPG PANEL BOX
+    ══════════════════════════════════════════ */
+    .rpg-box {
+      position: relative;
+      background: var(--bg-panel);
+      border: 3px solid var(--gold);
+      box-shadow:
+        0 0 0 1px var(--gold-dark),
+        0 0 0 5px var(--bg-dark),
+        0 0 0 6px var(--gold-dark),
+        0 10px 40px rgba(0,0,0,.8),
+        inset 0 0 0 1px var(--gold-dark),
+        inset 0 0 40px rgba(0,0,0,.3);
+      margin-bottom: 26px;
+    }
+
+    .corner-gem {
+      position: absolute;
+      width: 14px; height: 14px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      z-index: 5;
+    }
+    .c-tl { top: -7px;    left: -7px; }
+    .c-tr { top: -7px;    right: -7px; }
+    .c-bl { bottom: -7px; left: -7px; }
+    .c-br { bottom: -7px; right: -7px; }
+
+    /* ══════════════════════════════════════════
+       PANEL TITLE BAR
+    ══════════════════════════════════════════ */
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      background: linear-gradient(90deg, var(--gold-dark) 0%, rgba(90,63,0,.5) 50%, var(--gold-dark) 100%);
+      border-bottom: 2px solid var(--gold);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--gold-bright);
+      letter-spacing: 2px;
+      text-shadow: 0 1px 4px rgba(0,0,0,.8);
+    }
+
+    .panel-title .icon { color: var(--amber); animation: flicker 5s ease-in-out infinite; }
+
+    @keyframes flicker {
+      0%, 88%, 100% { opacity: 1; }
+      90% { opacity: .5; }
+      92% { opacity: 1; }
+    }
+
+    /* ══════════════════════════════════════════
+       CHARACTER HEADER
+    ══════════════════════════════════════════ */
+    .char-header { padding: 28px 24px 20px; }
+
+    .char-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .char-portrait {
+      flex: 0 0 96px;
+      width: 96px; height: 96px;
+      border: 3px solid var(--gold);
+      background: linear-gradient(135deg, #1a0a30, #0d1840, #1a0a30);
+      box-shadow: 0 0 0 1px var(--gold-dark), 0 0 20px rgba(232,184,64,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .char-portrait::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.15) 3px, rgba(0,0,0,.15) 4px);
+      pointer-events: none;
+    }
+
+    .char-info { width: 100%; text-align: center; }
+
+    .select-lbl {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--gray);
+      letter-spacing: 5px;
+      margin-bottom: 10px;
+      animation: blink 1.8s step-end infinite;
+    }
+
+    .char-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(14px, 2.5vw, 22px);
+      color: var(--gold-bright);
+      text-shadow: 0 0 20px var(--gold), 0 0 50px rgba(232,184,64,.4), 2px 2px 0 #000;
+      letter-spacing: 3px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .char-class {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(6px, 1.1vw, 8px);
+      color: var(--amber);
+      letter-spacing: 1px;
+      line-height: 2;
+      margin-bottom: 14px;
+    }
+
+    .char-class span { color: var(--purple-lt); }
+
+    /* Status bars (HP / MP / XP) */
+    .status-bars { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+
+    .status-row { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 480px; }
+
+    .status-icon { font-size: 16px; width: 22px; text-align: center; }
+
+    .status-lbl {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--parch-dim);
+      width: 20px;
+    }
+
+    .status-track {
+      flex: 1;
+      height: 14px;
+      background: #0a0820;
+      border: 2px solid var(--gold-dark);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .status-fill { height: 100%; width: 0; transition: width 1.5s ease-out; }
+    .status-fill.hp { background: linear-gradient(90deg, #800000, #e03030, #ff6060); box-shadow: 0 0 8px #e03030; }
+    .status-fill.mp { background: linear-gradient(90deg, #001080, #2060d0, #60a0ff); box-shadow: 0 0 8px #2060d0; }
+    .status-fill.xp { background: linear-gradient(90deg, #0a3000, #30b000, #60ff40); box-shadow: 0 0 8px #30b000; }
+
+    .status-val {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--parchment);
+      white-space: nowrap;
+      min-width: 60px;
+    }
+
+    .avail-badge {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--green);
+      border: 2px solid var(--green);
+      padding: 5px 12px;
+      margin-top: 14px;
+      animation: blink 1.5s step-end infinite;
+      box-shadow: 0 0 12px rgba(48,184,64,.4), inset 0 0 10px rgba(48,184,64,.1);
+    }
+
+    /* Contact row */
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 20px;
+      color: var(--parchment);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gold-dark);
+    }
+
+    .contact-row a { color: var(--gold); text-decoration: none; }
+    .contact-row a:hover { color: var(--gold-bright); text-decoration: underline; }
+    .csep { color: var(--gold-dark); }
+
+    /* Big 4 stats */
+    .cstat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--gold-dark);
+    }
+
+    .cstat {
+      text-align: center;
+      padding: 16px 8px;
+      border-right: 1px solid var(--gold-dark);
+      background: rgba(232,184,64,.02);
+    }
+    .cstat:last-child { border-right: none; }
+
+    .cstat-icon { font-size: 24px; display: block; margin-bottom: 4px; }
+
+    .cstat-lbl {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .cstat-val {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(12px, 2vw, 18px);
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(232,184,64,.6);
+    }
+
+    .cstat-sub { font-size: 16px; color: var(--parch-dim); margin-top: 4px; }
+
+    /* ══════════════════════════════════════════
+       HERO LORE
+    ══════════════════════════════════════════ */
+    .lore-body {
+      padding: 20px 24px;
+    }
+
+    .lore-body p {
+      color: var(--white);
+      font-size: 20px;
+      line-height: 1.75;
+    }
+
+    .lore-body p::before {
+      content: '⚔ ';
+      color: var(--amber);
+    }
+
+    /* ══════════════════════════════════════════
+       SKILLS & SPELL BOOK
+    ══════════════════════════════════════════ */
+    .skills-body {
+      padding: 16px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    .skill-cat-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid;
+    }
+
+    .skill-cat-title.sword   { color: var(--red);      border-color: rgba(224,64,64,.3); }
+    .skill-cat-title.crystal { color: var(--blue-light); border-color: rgba(96,160,255,.3); }
+    .skill-cat-title.crown   { color: var(--gold);     border-color: rgba(232,184,64,.3); }
+    .skill-cat-title.gear    { color: var(--teal);     border-color: rgba(32,192,168,.3); }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .skill-n {
+      font-size: 18px;
+      color: var(--white);
+      flex: 0 0 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .skill-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(0,0,0,.5);
+      border: 1px solid var(--gold-dark);
+      overflow: hidden;
+    }
+
+    .skill-fill { height: 100%; width: 0; transition: width 1.3s ease-out; }
+    .skill-fill.s { background: linear-gradient(90deg, #600000, #d03030); }
+    .skill-fill.c { background: linear-gradient(90deg, #001060, #2060c0); }
+    .skill-fill.k { background: linear-gradient(90deg, #503000, #c07800); }
+    .skill-fill.g { background: linear-gradient(90deg, #002828, #00a090); }
+
+    .skill-pct {
+      font-size: 16px;
+      color: var(--gold);
+      flex: 0 0 36px;
+      text-align: right;
+    }
+
+    .tools-row {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--gold-dark);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tools-lbl {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      color: var(--amber);
+    }
+
+    .tool-chip {
+      font-size: 17px;
+      color: var(--gold);
+      border: 1px solid var(--gold-dark);
+      padding: 2px 10px;
+      background: rgba(232,184,64,.06);
+    }
+
+    /* ══════════════════════════════════════════
+       QUEST LOG
+    ══════════════════════════════════════════ */
+    .quest {
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(232,184,64,.1);
+    }
+    .quest:last-child { border-bottom: none; }
+
+    .quest-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+
+    .quest-co {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(8px, 1.5vw, 10px);
+      color: var(--gold);
+      text-shadow: 0 0 8px rgba(232,184,64,.5);
+    }
+
+    .quest-date { font-size: 19px; color: var(--purple-lt); }
+
+    .quest-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .quest-role { font-size: 21px; color: var(--amber); }
+    .quest-loc  { font-size: 17px; color: var(--parch-dim); }
+    .quest-desc { font-size: 17px; color: var(--teal); font-style: italic; margin-bottom: 8px; }
+
+    .badge {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      padding: 3px 8px;
+      border: 1px solid;
+      display: inline-block;
+    }
+
+    .badge-active    { border-color: var(--green); color: var(--green); animation: blink 2s step-end infinite; }
+    .badge-done      { border-color: var(--gray);  color: var(--gray); }
+    .badge-legendary { border-color: var(--gold);  color: var(--gold); text-shadow: 0 0 6px rgba(232,184,64,.6); }
+
+    .quest-ul { list-style: none; padding: 0; }
+
+    .quest-ul li {
+      font-size: 19px;
+      color: var(--white);
+      padding: 2px 0 2px 26px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .quest-ul li::before {
+      content: '⚔';
+      position: absolute;
+      left: 2px;
+      font-size: 13px;
+      color: var(--red);
+      top: 4px;
+    }
+
+    /* ══════════════════════════════════════════
+       EDUCATION
+    ══════════════════════════════════════════ */
+    .edu-body { padding: 18px 22px; }
+
+    .edu-school {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(7px, 1.3vw, 9px);
+      color: var(--gold);
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+
+    .edu-degree { font-size: 21px; color: var(--amber); margin-bottom: 2px; }
+    .edu-date   { font-size: 17px; color: var(--parch-dim); }
+
+    /* ══════════════════════════════════════════
+       LANGUAGE RUNES
+    ══════════════════════════════════════════ */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 16px 22px;
+    }
+
+    .lang-card {
+      text-align: center;
+      padding: 14px 10px;
+      border: 2px solid var(--gold-dark);
+      background: linear-gradient(135deg, rgba(232,184,64,.03), rgba(232,184,64,.08));
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .lang-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 14px rgba(232,184,64,.3);
+    }
+
+    .lang-rune   { font-size: 28px; display: block; margin-bottom: 6px; }
+    .lang-name   { font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--gold); margin-bottom: 4px; }
+    .lang-level  { font-size: 18px; color: var(--white); margin-bottom: 4px; }
+    .lang-hearts { font-size: 16px; letter-spacing: 2px; }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .cv-footer {
+      text-align: center;
+      padding: 28px 0 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--gray);
+      line-height: 2;
+      letter-spacing: 2px;
+    }
+
+    .save-prompt {
+      color: var(--gold);
+      animation: blink .9s step-end infinite;
+      text-shadow: 0 0 8px rgba(232,184,64,.6);
+    }
+
+    /* ══════════════════════════════════════════
+       PRINT BUTTON
+    ══════════════════════════════════════════ */
+    .print-btn {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--bg);
+      background: var(--gold);
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      box-shadow: 0 0 14px rgba(232,184,64,.5);
+      transition: background .2s, box-shadow .2s;
+      margin-bottom: 16px;
+    }
+    .print-btn:hover { background: var(--gold-bright); box-shadow: 0 0 24px rgba(232,184,64,.8); }
+
+    .print-row { text-align: right; margin-bottom: 8px; }
+
+    /* ══════════════════════════════════════════
+       FLOATING XP NUMBERS
+    ══════════════════════════════════════════ */
+    .float-xp {
+      position: fixed;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      pointer-events: none;
+      animation: float-up 2s forwards;
+      z-index: 8000;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    @keyframes float-up {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      50%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-90px) scale(.8); }
+    }
+
+    /* ══════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════ */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 720px) {
+      .cstat-grid  { grid-template-columns: repeat(2, 1fr); }
+      .skills-body { grid-template-columns: 1fr; }
+      .char-top    { gap: 12px; }
+      .hud-bar-track { width: 80px; }
+      .hud-right   { display: none; }
+      .skill-n     { flex: 0 0 140px; font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .char-name     { font-size: 12px; }
+      .contact-row   { font-size: 17px; gap: 10px; }
+      .cstat-grid    { grid-template-columns: repeat(2, 1fr); }
+      .lang-grid     { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ══════════════════════════════════════════
+       PRINT — CLEAN ATS PDF
+    ══════════════════════════════════════════ */
+    @media print {
+      body {
+        background: #fff !important;
+        background-image: none !important;
+        color: #111 !important;
+        font-family: Georgia, serif !important;
+        font-size: 10.5pt !important;
+        padding-top: 0 !important;
+      }
+      .game-hud, .print-row, .lvlup-popup, .avail-badge, .select-lbl, .char-portrait { display: none !important; }
+      .rpg-box { border: 1px solid #aaa !important; box-shadow: none !important; background: #fff !important; margin-bottom: 10pt !important; }
+      .rpg-box::before, .rpg-box::after, .corner-gem { display: none !important; }
+      .panel-title { background: #efefef !important; border-bottom: 1px solid #aaa !important; color: #111 !important; font-size: 9pt !important; text-shadow: none !important; }
+      .panel-title .icon { display: none !important; }
+      .char-name { color: #111 !important; text-shadow: none !important; font-size: 20pt !important; }
+      .char-class { color: #333 !important; font-size: 9pt !important; }
+      .char-top { display: block !important; }
+      .status-bars { display: none !important; }
+      .contact-row { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 10pt !important; }
+      .contact-row a { color: #111 !important; }
+      .cstat-grid { grid-template-columns: repeat(4,1fr) !important; }
+      .cstat { border-right: 1px solid #ccc !important; background: #fafafa !important; }
+      .cstat-lbl { color: #555 !important; font-size: 6pt !important; }
+      .cstat-val { color: #111 !important; text-shadow: none !important; font-size: 12pt !important; }
+      .cstat-sub { color: #555 !important; }
+      .lore-body p { color: #111 !important; font-family: Georgia, serif !important; font-size: 10.5pt !important; }
+      .lore-body p::before { content: '' !important; }
+      .skill-cat-title { color: #333 !important; border-color: #ccc !important; font-size: 7pt !important; }
+      .skill-n { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 9pt !important; flex: 0 0 160px !important; }
+      .skill-track { border: 1px solid #bbb !important; }
+      .skill-fill { background: #555 !important; }
+      .skill-pct { color: #555 !important; font-family: Arial, sans-serif !important; font-size: 8pt !important; }
+      .tools-row { border-color: #ccc !important; }
+      .tool-chip { color: #111 !important; border-color: #999 !important; font-family: Arial, sans-serif !important; font-size: 9pt !important; }
+      .quest-co { color: #111 !important; text-shadow: none !important; font-size: 10pt !important; font-weight: bold !important; }
+      .quest-date { color: #333 !important; font-family: Arial, sans-serif !important; font-size: 10pt !important; }
+      .quest-role { color: #333 !important; font-style: italic !important; font-family: Arial, sans-serif !important; font-size: 10.5pt !important; }
+      .quest-loc { color: #555 !important; font-family: Arial, sans-serif !important; font-size: 9pt !important; }
+      .badge { display: none !important; }
+      .quest-ul li { color: #111 !important; font-family: Georgia, serif !important; font-size: 10pt !important; }
+      .quest-ul li::before { content: '•' !important; font-size: 10pt !important; color: #333 !important; top: 0 !important; }
+      .edu-school { color: #111 !important; text-shadow: none !important; font-weight: bold !important; }
+      .edu-degree { color: #333 !important; font-family: Georgia, serif !important; font-size: 10.5pt !important; }
+      .edu-date { color: #555 !important; font-family: Arial, sans-serif !important; font-size: 9pt !important; }
+      .lang-card { border: 1px solid #ccc !important; background: #fafafa !important; }
+      .lang-rune { display: none !important; }
+      .lang-name { color: #111 !important; text-shadow: none !important; }
+      .lang-level { color: #333 !important; font-family: Arial, sans-serif !important; }
+      .lang-hearts { color: #555 !important; }
+      .cv-footer { display: none !important; }
+      .quest { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     FIXED GAME HUD
+════════════════════════════════════════════ -->
+<div class="game-hud">
+  <div class="hud-left">
+    <div class="hud-name">⚔ MAOR KREICMAN</div>
+    <div class="hud-bar-row">
+      <span class="hud-bar-label">HP</span>
+      <div class="hud-bar-track">
+        <div class="hud-bar-fill hp" id="hud-hp" style="width:0"></div>
+      </div>
+      <span class="hud-bar-val">13/13 ❤</span>
+    </div>
+    <div class="hud-bar-row">
+      <span class="hud-bar-label">MP</span>
+      <div class="hud-bar-track">
+        <div class="hud-bar-fill mp" id="hud-mp" style="width:0"></div>
+      </div>
+      <span class="hud-bar-val">91/100 ♦</span>
+    </div>
+  </div>
+
+  <div class="hud-center">
+    <div class="hud-lvl-badge">⚔ LVL 13 ⚔</div>
+    <div class="hud-xp-track">
+      <div class="hud-xp-fill" id="hud-xp"></div>
+    </div>
+    <div class="hud-xp-label">XP TO NEXT LEVEL</div>
+  </div>
+
+  <div class="hud-right">
+    <div class="hud-gold-val">💰 GOLD: $10M+</div>
+    <div class="hud-subinfo">MARKETS: 8+ &nbsp;◈&nbsp; CLASS: DSP/SSP</div>
+  </div>
+</div>
+
+<!-- LVLUP popup -->
+<div class="lvlup-popup" id="lvlup">⭐ LEVEL UP! ⭐</div>
+
+<div class="container">
+
+  <div class="print-row">
+    <button class="print-btn" onclick="window.print()">[ ⚔ EXPORT CHARACTER SHEET ]</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       CHARACTER SHEET HEADER
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">⚔</span> CHARACTER SHEET</div>
+    <div class="char-header">
+      <div class="char-top">
+        <div class="char-portrait">🧙‍♂️</div>
+        <div class="char-info">
+          <div class="select-lbl">--- SELECT YOUR HERO ---</div>
+          <div class="char-name">MAOR KREICMAN</div>
+          <div class="char-class">
+            CLASS: <span>VP BUSINESS DEVELOPMENT</span> &nbsp;|&nbsp; <span>CRO</span> &nbsp;|&nbsp; <span>CHIEF BUSINESS OFFICER</span><br>
+            GUILD: ADTECH WARLORD &nbsp;&nbsp;&nbsp; LEVEL: 13 &nbsp;&nbsp;&nbsp; SPEC: DSP / SSP
+          </div>
+          <div class="status-bars">
+            <div class="status-row">
+              <span class="status-icon">❤</span>
+              <span class="status-lbl">HP</span>
+              <div class="status-track">
+                <div class="status-fill hp" data-fill="100"></div>
+              </div>
+              <span class="status-val">13 / 13 YRS</span>
+            </div>
+            <div class="status-row">
+              <span class="status-icon">♦</span>
+              <span class="status-lbl">MP</span>
+              <div class="status-track">
+                <div class="status-fill mp" data-fill="91"></div>
+              </div>
+              <span class="status-val">91 ADTECH</span>
+            </div>
+            <div class="status-row">
+              <span class="status-icon">★</span>
+              <span class="status-lbl">XP</span>
+              <div class="status-track">
+                <div class="status-fill xp" data-fill="85"></div>
+              </div>
+              <span class="status-val">SEEK LVL 13</span>
+            </div>
+          </div>
+          <div class="avail-badge">&gt;&gt; AVAILABLE FOR NEW QUEST &lt;&lt;</div>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <span>📍 Tbilisi, Georgia</span>
+        <span class="csep">◈</span>
+        <a href="tel:+995551024113">☎ +995-551-024-113</a>
+        <span class="csep">◈</span>
+        <a href="mailto:maorkreichman@gmail.com">✉ maorkreichman@gmail.com</a>
+        <span class="csep">◈</span>
+        <a href="https://www.linkedin.com/in/maor-kreichman/" target="_blank">🔗 LinkedIn</a>
+        <span class="csep">◈</span>
+        <span>Open to Remote, On-site &amp; Relocation</span>
+      </div>
+    </div>
+
+    <!-- BIG 4 STATS -->
+    <div class="cstat-grid">
+      <div class="cstat">
+        <span class="cstat-icon">⚔️</span>
+        <div class="cstat-lbl">EXPERIENCE</div>
+        <div class="cstat-val">13+</div>
+        <div class="cstat-sub">Years in AdTech</div>
+      </div>
+      <div class="cstat">
+        <span class="cstat-icon">🌍</span>
+        <div class="cstat-lbl">MARKETS</div>
+        <div class="cstat-val">8+</div>
+        <div class="cstat-sub">Countries Expanded</div>
+      </div>
+      <div class="cstat">
+        <span class="cstat-icon">💰</span>
+        <div class="cstat-lbl">REVENUE</div>
+        <div class="cstat-val">$10M</div>
+        <div class="cstat-sub">Annual Sales Led</div>
+      </div>
+      <div class="cstat">
+        <span class="cstat-icon">🔮</span>
+        <div class="cstat-lbl">SPECIALTY</div>
+        <div class="cstat-val" style="font-size:10px;">DSP/SSP</div>
+        <div class="cstat-sub">Programmatic, AdTech &amp; Gaming</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       HERO LORE
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">📜</span> HERO LORE &amp; BACKSTORY</div>
+    <div class="lore-body">
+      <p>Results-driven AdTech executive with 13+ years driving business development, revenue growth, and international expansion across demand-side platforms (DSP), supply-side platforms (SSP), and programmatic advertising ecosystems. Co-founding team member and VP International Expansion at Persona.ly — scaling global presence across 8+ markets and contributing to $10M in annual revenue. Expert in strategic partnerships, data monetization, user acquisition, mobile advertising, and go-to-market (GTM) strategy across B2B, B2C, and B2G verticals. Proven track record building high-performing teams, negotiating at C-suite level, and executing multi-year growth strategies. Built and led a proprietary DSP unit from inception. Seeking VP Business Development, CRO, or Chief Business Officer role in AdTech, data, or broader technology.</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SKILLS & SPELL BOOK
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">⚔</span> SKILLS &amp; SPELL BOOK</div>
+    <div class="skills-body">
+
+      <!-- BD & Revenue -->
+      <div>
+        <div class="skill-cat-title sword">⚔ BUSINESS DEVELOPMENT &amp; REVENUE</div>
+        <div class="skill-row">
+          <span class="skill-n">Strategic Partnerships</span>
+          <div class="skill-track"><div class="skill-fill s" data-pct="96"></div></div>
+          <span class="skill-pct">96</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Revenue Growth &amp; GTM</span>
+          <div class="skill-track"><div class="skill-fill s" data-pct="93"></div></div>
+          <span class="skill-pct">93</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">International Expansion</span>
+          <div class="skill-track"><div class="skill-fill s" data-pct="92"></div></div>
+          <span class="skill-pct">92</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">B2B / B2C / B2G Sales</span>
+          <div class="skill-track"><div class="skill-fill s" data-pct="90"></div></div>
+          <span class="skill-pct">90</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Account Management</span>
+          <div class="skill-track"><div class="skill-fill s" data-pct="88"></div></div>
+          <span class="skill-pct">88</span>
+        </div>
+      </div>
+
+      <!-- AdTech -->
+      <div>
+        <div class="skill-cat-title crystal">🔮 ADTECH &amp; DIGITAL</div>
+        <div class="skill-row">
+          <span class="skill-n">DSP / SSP Ecosystems</span>
+          <div class="skill-track"><div class="skill-fill c" data-pct="91"></div></div>
+          <span class="skill-pct">91</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Programmatic Advertising</span>
+          <div class="skill-track"><div class="skill-fill c" data-pct="89"></div></div>
+          <span class="skill-pct">89</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">User Acquisition (UA)</span>
+          <div class="skill-track"><div class="skill-fill c" data-pct="89"></div></div>
+          <span class="skill-pct">89</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Mobile &amp; App Marketing</span>
+          <div class="skill-track"><div class="skill-fill c" data-pct="86"></div></div>
+          <span class="skill-pct">86</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Data Partnerships</span>
+          <div class="skill-track"><div class="skill-fill c" data-pct="85"></div></div>
+          <span class="skill-pct">85</span>
+        </div>
+      </div>
+
+      <!-- Leadership -->
+      <div>
+        <div class="skill-cat-title crown">👑 LEADERSHIP &amp; STRATEGY</div>
+        <div class="skill-row">
+          <span class="skill-n">C-Suite Stakeholder Mgmt</span>
+          <div class="skill-track"><div class="skill-fill k" data-pct="94"></div></div>
+          <span class="skill-pct">94</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Team Building &amp; Mentoring</span>
+          <div class="skill-track"><div class="skill-fill k" data-pct="90"></div></div>
+          <span class="skill-pct">90</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Product Strategy</span>
+          <div class="skill-track"><div class="skill-fill k" data-pct="83"></div></div>
+          <span class="skill-pct">83</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">P&amp;L Management</span>
+          <div class="skill-track"><div class="skill-fill k" data-pct="82"></div></div>
+          <span class="skill-pct">82</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Process Optimization</span>
+          <div class="skill-track"><div class="skill-fill k" data-pct="87"></div></div>
+          <span class="skill-pct">87</span>
+        </div>
+      </div>
+
+      <!-- Operations -->
+      <div>
+        <div class="skill-cat-title gear">⚙ OPERATIONS &amp; CROSS-FUNCTIONAL</div>
+        <div class="skill-row">
+          <span class="skill-n">Cross-functional Leadership</span>
+          <div class="skill-track"><div class="skill-fill g" data-pct="91"></div></div>
+          <span class="skill-pct">91</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Budget &amp; Forecasting</span>
+          <div class="skill-track"><div class="skill-fill g" data-pct="82"></div></div>
+          <span class="skill-pct">82</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Workflow Automation</span>
+          <div class="skill-track"><div class="skill-fill g" data-pct="80"></div></div>
+          <span class="skill-pct">80</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Market &amp; Competitor Analysis</span>
+          <div class="skill-track"><div class="skill-fill g" data-pct="88"></div></div>
+          <span class="skill-pct">88</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-n">Contract &amp; Legal Mgmt</span>
+          <div class="skill-track"><div class="skill-fill g" data-pct="78"></div></div>
+          <span class="skill-pct">78</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="tools-row">
+        <span class="tools-lbl">🎒 EQUIPPED:</span>
+        <span class="tool-chip">Monday.com</span>
+        <span class="tool-chip">PowerPoint</span>
+        <span class="tool-chip">Excel</span>
+        <span class="tool-chip">Canva</span>
+        <span class="tool-chip">Claude Code</span>
+        <span class="tool-chip">Visual Studio Code</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       QUEST LOG
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">📖</span> QUEST LOG // WORK EXPERIENCE</div>
+
+    <!-- TEKMA -->
+    <div class="quest">
+      <div class="quest-top">
+        <span class="quest-co">TEKMA</span>
+        <span class="quest-date">FEB 2025 — PRESENT</span>
+      </div>
+      <div class="quest-desc">📦 Data Management Platform (DMP) — micro-audience targeting for efficient programmatic marketing</div>
+      <div class="quest-meta">
+        <span class="quest-role">Advisor to CEO, Business Development</span>
+        <span class="quest-loc">Dubai (Remote from Tbilisi)</span>
+        <span class="badge badge-active">[ ACTIVE QUEST ]</span>
+      </div>
+      <ul class="quest-ul">
+        <li>Spearheaded innovative data sourcing initiatives, establishing strategic partnerships that expanded Tekma's data network with mobile SDK and location intelligence capabilities.</li>
+        <li>Led business development efforts to acquire and license high-quality data assets, enhancing Tekma's data management platform and audience segmentation offerings.</li>
+        <li>Negotiated data licensing agreements and evaluated dataset attributes to ensure alignment with client needs and regulatory standards, improving compliance and satisfaction.</li>
+        <li>Represented Tekma in C-suite-level negotiations with leading data companies, facilitating technical and commercial discussions that created new business opportunities.</li>
+        <li>Conducted market research and competitive analysis to identify gaps in data offerings and drive international market expansion.</li>
+        <li>Collaborated cross-functionally to facilitate data integration, pilot projects, and campaign performance optimization, maximizing ROI for clients.</li>
+      </ul>
+    </div>
+
+    <!-- THRIVESTATE -->
+    <div class="quest">
+      <div class="quest-top">
+        <span class="quest-co">THRIVESTATE</span>
+        <span class="quest-date">NOV 2024 — JAN 2025</span>
+      </div>
+      <div class="quest-desc">🏙 Dubai PropTech &amp; real estate group — primary residential sales, in-house CRM, holiday homes, and a dedicated R&amp;D division</div>
+      <div class="quest-meta">
+        <span class="quest-role">Strategic Advisor &amp; Interim COO</span>
+        <span class="quest-loc">Dubai</span>
+        <span class="badge badge-done">[ COMPLETED ]</span>
+      </div>
+      <ul class="quest-ul">
+        <li>Conducted comprehensive C-suite and cross-departmental stakeholder audits across multiple international offices to diagnose operational gaps and inefficiencies.</li>
+        <li>Designed and implemented standardized procedures across all business units, driving consistency, efficiency, and scalability across the organization.</li>
+        <li>Led full WorkOS implementation, automating workflows, notifications, and communications to streamline operations and enhance cross-office collaboration.</li>
+        <li>Built HR frameworks including recruitment workflows, onboarding processes, and digital IT inventory directories, integrating seamlessly with Finance processes.</li>
+        <li>Developed P&amp;L statements for individual business units, enabling financial transparency and supporting strategic decision-making at the executive level.</li>
+        <li>Established operations manuals for Holiday Homes and additional departments, optimizing service delivery and cross-functional consistency.</li>
+        <li>Facilitated legal counsel engagement to ensure compliance and risk mitigation across the group's multi-office activities.</li>
+      </ul>
+    </div>
+
+    <!-- OMNI VERSE -->
+    <div class="quest">
+      <div class="quest-top">
+        <span class="quest-co">OMNI VERSE &nbsp;/&nbsp; DEFINITIO</span>
+        <span class="quest-date">JUL 2022 — JAN 2025</span>
+      </div>
+      <div class="quest-desc">🌐 Dubai-based digital media group — Definitio is their proprietary Demand-Side Platform (DSP), built from the ground up</div>
+      <div class="quest-meta">
+        <span class="quest-role">Founder &amp; Director, DSP Unit</span>
+        <span class="quest-loc">Dubai, UAE</span>
+        <span class="badge badge-done">[ COMPLETED ]</span>
+      </div>
+      <ul class="quest-ul">
+        <li>Founded and built Definitio, the proprietary DSP (Demand-Side Platform) unit of Omni Verse, overseeing all commercial operations from inception — including product strategy, partnerships, new business, advertising budget management, and go-to-market execution.</li>
+        <li>Successfully onboarded 8 key clients with tailored market analysis and strategic presentations, driving their first successful app campaigns and solidifying DSP's position in digital advertising.</li>
+        <li>Streamlined DSP operations and workflows, reducing costs and improving operational efficiency by 30%, contributing to scalable growth.</li>
+        <li>Developed data-driven go-to-market strategies that improved product adoption and expanded market penetration within the mobile app ecosystem.</li>
+        <li>Managed budget planning, financial forecasting, and resource allocation to ensure business sustainability and informed decision-making.</li>
+        <li>Collaborated with R&amp;D teams to define product requirements and roadmaps aligned with client needs and market demands.</li>
+        <li>Built and maintained relationships with C-suite stakeholders, partners, and clients to drive long-term business growth and retention.</li>
+      </ul>
+    </div>
+
+    <!-- PERSONA.LY -->
+    <div class="quest">
+      <div class="quest-top">
+        <span class="quest-co">PERSONA.LY</span>
+        <span class="quest-date">MAY 2014 — JUN 2022</span>
+      </div>
+      <div class="quest-desc">📱 Global AdTech &amp; mobile UA company — DSP, Playable Ads, and Offerwall solutions for app publishers and advertisers worldwide (40+ employees)</div>
+      <div class="quest-meta">
+        <span class="quest-role">Co-Founding Team Member &amp; VP International Expansion</span>
+        <span class="quest-loc">Israel &nbsp;|&nbsp; 8 Years</span>
+        <span class="badge badge-legendary">[ ⭐ LEGENDARY QUEST ]</span>
+      </div>
+      <ul class="quest-ul">
+        <li>Joined as a founding team member and helped scale the company from early-stage startup to a global mobile user acquisition (UA) leader with 40+ employees.</li>
+        <li>Drove global expansion into 8+ markets — USA, Russia, Japan, South Korea, China, Indonesia, and India — establishing satellite offices, local partnerships, and market-entry strategies in each region.</li>
+        <li>Architected multi-year growth strategies generating $1.5M in new revenue streams in 2021 and contributing to $10M in total annual sales across diverse products and services.</li>
+        <li>Introduced the first Playable Ad format to top clients, setting a new industry standard in mobile advertising and user acquisition.</li>
+        <li>Built and led a cross-functional commercial team spanning account management, SDRs, and business development professionals — focused on long-term relationships and revenue growth.</li>
+        <li>Executed 3 major company pivots in response to industry disruption — restructuring sales and BD teams, KPIs, and strategy, and consulting with stakeholders to realign product vision and offering.</li>
+        <li>Managed all legal contracts, billing, and collections, reducing financial losses by 15%.</li>
+        <li>Positioned Persona.ly as a trusted partner in mobile user acquisition through C-level pitching, collaboration with leading technology companies, and expanding the client base of app publishers and advertisers.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ACHIEVEMENTS — EDUCATION
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">🏆</span> ACHIEVEMENTS &amp; TITLES</div>
+    <div class="edu-body">
+      <div class="edu-school">🏛 THE COLLEGE OF MANAGEMENT ACADEMIC STUDIES — RISHON LEZION, ISRAEL</div>
+      <div class="edu-degree">BA, Business Management &bull; Major: Marketing &bull; Minor: Information Systems</div>
+      <div class="edu-date">Achievement Unlocked: June 2012</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       LANGUAGE RUNES
+  ════════════════════════════════════════════ -->
+  <div class="rpg-box">
+    <span class="corner-gem c-tl"></span><span class="corner-gem c-tr"></span>
+    <span class="corner-gem c-bl"></span><span class="corner-gem c-br"></span>
+    <div class="panel-title"><span class="icon">🔡</span> LANGUAGE RUNES</div>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <span class="lang-rune">🇺🇸</span>
+        <div class="lang-name">ENGLISH</div>
+        <div class="lang-level">Native</div>
+        <div class="lang-hearts" style="color:#e04040;">❤❤❤❤❤</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-rune">🇮🇱</span>
+        <div class="lang-name">HEBREW</div>
+        <div class="lang-level">Native</div>
+        <div class="lang-hearts" style="color:#e04040;">❤❤❤❤❤</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-rune">🇷🇺</span>
+        <div class="lang-name">RUSSIAN</div>
+        <div class="lang-level">Beginner</div>
+        <div class="lang-hearts"><span style="color:#e04040;">❤</span><span style="color:#5a3f00;">♡♡♡♡</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="cv-footer">
+    <div class="save-prompt">&gt;&gt;&gt; SAVE THE GAME? &nbsp;[ YES ] &nbsp;/&nbsp; [ NO ] &nbsp;&lt;&lt;&lt;</div>
+    <div style="margin-top:6px;color:var(--gray);">MAOR KREICMAN &nbsp;◈&nbsp; 2025 &nbsp;◈&nbsp; ALL RIGHTS RESERVED</div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── HUD bars animate on load ──
+  setTimeout(() => {
+    document.getElementById('hud-hp').style.width = '100%';
+    document.getElementById('hud-mp').style.width = '91%';
+    document.getElementById('hud-xp').style.width  = '85%';
+  }, 300);
+
+  // ── Skill bars via IntersectionObserver ──
+  const allFills = document.querySelectorAll('.skill-fill[data-pct], .status-fill[data-fill]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.dataset.pct)  el.style.width = el.dataset.pct  + '%';
+      if (el.dataset.fill) el.style.width = el.dataset.fill + '%';
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.2 });
+
+  allFills.forEach(f => observer.observe(f));
+
+  // ── Floating XP numbers on click ──
+  const xpTexts  = ['+50 XP', '+BD SKILL', '⚔ CRIT!', '+GOLD', '★ LVL UP?', '+MANA', '♦ +ADTECH'];
+  const xpColors = ['#e8b840','#e04040','#2080ff','#30b840','#c080ff','#60a0ff','#20c0a8'];
+
+  document.addEventListener('click', e => {
+    // Don't trigger on links/buttons
+    if (e.target.closest('a, button')) return;
+    const el = document.createElement('div');
+    el.className = 'float-xp';
+    el.textContent = xpTexts[Math.floor(Math.random() * xpTexts.length)];
+    el.style.left  = e.clientX + 'px';
+    el.style.top   = (e.clientY - 10) + 'px';
+    el.style.color = xpColors[Math.floor(Math.random() * xpColors.length)];
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2100);
+  });
+</script>
+
+</body>
+</html>
