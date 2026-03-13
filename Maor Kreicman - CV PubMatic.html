@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maor Kreicman — Sales Director · PubMatic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:         #0b0e1a;
+      --panel:      #111827;
+      --border:     #1e2d45;
+      --teal:       #00c9c8;
+      --teal-dim:   #0a6868;
+      --blue:       #2d7dd2;
+      --amber:      #f0a030;
+      --text:       #c8d6e8;
+      --text-bright:#e8f0fb;
+      --text-dim:   #6b7f9a;
+      --font-mono:  'JetBrains Mono', monospace;
+      --font-body:  'Outfit', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ========== HEADER ========== */
+    .cv-header {
+      position: relative;
+      overflow: hidden;
+      background: #0b0e1a;
+      border-bottom: 2px solid var(--border);
+      padding: 52px 56px 44px;
+    }
+
+    .cv-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          -55deg,
+          transparent,
+          transparent 38px,
+          rgba(0, 201, 200, 0.03) 38px,
+          rgba(0, 201, 200, 0.03) 39px
+        ),
+        repeating-linear-gradient(
+          35deg,
+          transparent,
+          transparent 60px,
+          rgba(45, 125, 210, 0.025) 60px,
+          rgba(45, 125, 210, 0.025) 61px
+        );
+      pointer-events: none;
+    }
+
+    .cv-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .header-name-block h1 {
+      font-family: var(--font-mono);
+      font-size: 2.7rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 0 32px rgba(0,201,200,0.18);
+    }
+
+    .header-name-block .role-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1.0rem;
+      color: var(--teal);
+      margin-top: 8px;
+      letter-spacing: 0.06em;
+    }
+
+    .header-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+      min-width: 260px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .contact-key {
+      color: var(--teal);
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .contact-sep {
+      color: var(--text-dim);
+      margin-right: 6px;
+    }
+
+    .contact-val {
+      color: var(--text);
+    }
+
+    .contact-val a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .contact-val a:hover {
+      color: var(--teal);
+    }
+
+    /* ========== HEADLINE STATS ========== */
+    .headline-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .stat-card {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      padding: 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0,201,200,0.04));
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--amber);
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(240,160,48,0.25);
+    }
+
+    .stat-sub {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* ========== MAIN LAYOUT ========== */
+    .cv-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 56px 60px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 36px;
+    }
+
+    .col-main {}
+    .col-side {}
+
+    /* ========== SECTION HEADERS ========== */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      margin-top: 40px;
+    }
+
+    .section-header:first-child,
+    .section-header.first {
+      margin-top: 0;
+    }
+
+    .section-prefix {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 6px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+    }
+
+    /* ========== PROFESSIONAL SUMMARY ========== */
+    .summary-block {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      padding: 22px 24px;
+      font-family: var(--font-body);
+      font-size: 0.93rem;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ========== EXPERIENCE ========== */
+    .experience-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 24px 26px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+    }
+
+    .experience-card.active::before   { background: var(--teal); }
+    .experience-card.completed::before { background: var(--blue); }
+    .experience-card.legendary::before { background: var(--amber); }
+
+    .exp-company {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .experience-card.legendary .exp-company { color: var(--amber); }
+    .experience-card.completed .exp-company { color: #60a0e0; }
+
+    .exp-role {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-top: 3px;
+    }
+
+    .exp-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .exp-dates {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--blue);
+    }
+
+    .exp-location {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    .exp-status {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .exp-status.active-badge    { background: rgba(0,201,200,0.12); color: var(--teal); border: 1px solid rgba(0,201,200,0.25); }
+    .exp-status.completed-badge { background: rgba(45,125,210,0.12); color: var(--blue); border: 1px solid rgba(45,125,210,0.25); }
+    .exp-status.legendary-badge { background: rgba(240,160,48,0.12); color: var(--amber); border: 1px solid rgba(240,160,48,0.25); }
+
+    .exp-description {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-top: 12px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exp-bullets li {
+      display: flex;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bullet-arrow {
+      font-family: var(--font-mono);
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.78rem;
+    }
+
+    .experience-card.legendary .bullet-arrow { color: var(--amber); }
+
+    /* ========== SKILL BARS ========== */
+    .skills-category {
+      margin-bottom: 28px;
+    }
+
+    .skills-cat-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-item {
+      margin-bottom: 10px;
+    }
+
+    .skill-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .skill-name {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--text);
+    }
+
+    .skill-pct {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background: rgba(30, 45, 69, 0.8);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal-dim), var(--teal));
+      border-radius: 1px;
+      transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 8px rgba(0, 201, 200, 0.3);
+    }
+
+    /* ========== TOOLS ========== */
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+      background: rgba(0,201,200,0.08);
+      border: 1px solid rgba(0,201,200,0.2);
+      padding: 4px 10px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== EDUCATION ========== */
+    .education-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      padding: 20px 22px;
+    }
+
+    .edu-institution {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .edu-degree {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-top: 5px;
+    }
+
+    .edu-details {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .edu-grad {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--amber);
+      margin-top: 8px;
+    }
+
+    /* ========== LANGUAGES ========== */
+    .language-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .lang-name {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .lang-level {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .lang-stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .star {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .star.lit {
+      background: var(--teal);
+      box-shadow: 0 0 5px rgba(0,201,200,0.5);
+    }
+
+    /* ========== PRINT BUTTONS ========== */
+    .print-buttons-row {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 56px 32px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .print-btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--teal);
+      background: rgba(0,201,200,0.06);
+      border: 1px solid rgba(0,201,200,0.25);
+      padding: 10px 20px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .print-btn:hover {
+      background: rgba(0,201,200,0.15);
+      color: var(--text-bright);
+      border-color: var(--teal);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 700px) {
+      .cv-header {
+        padding: 32px 20px 28px;
+      }
+
+      .header-top {
+        flex-direction: column;
+      }
+
+      .header-name-block h1 {
+        font-size: 1.9rem;
+      }
+
+      .headline-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cv-body {
+        grid-template-columns: 1fr;
+        padding: 24px 20px 40px;
+      }
+
+      .print-buttons-row {
+        padding: 0 20px 24px;
+      }
+    }
+
+    /* ========== PAGE MARGINS ========== */
+    @page { margin: 9mm 14mm; }
+
+    /* ========== PRINT: ATS MODE (default) ========== */
+    @media print {
+      html:not(:has(body.color-print)) {
+        font-size: 9pt !important;
+      }
+
+      body:not(.color-print) {
+        background: #fff !important;
+        color: #111 !important;
+        font-family: Georgia, 'Times New Roman', serif !important;
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+      }
+
+      body:not(.color-print) * {
+        font-family: Georgia, 'Times New Roman', serif !important;
+        background: transparent !important;
+        color: #111 !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        border-color: #ccc !important;
+        border-left-color: #ccc !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* ── hide decorative / interactive elements ── */
+      body:not(.color-print) .print-buttons-row,
+      body:not(.color-print) .cv-header::before,
+      body:not(.color-print) .cv-header::after,
+      body:not(.color-print) .section-title::after,
+      body:not(.color-print) .exp-status,
+      body:not(.color-print) .exp-description,
+      body:not(.color-print) .stat-card::after { display: none !important; }
+
+      /* ── header: tight ── */
+      body:not(.color-print) .cv-header {
+        border-bottom: 1pt solid #333 !important;
+        padding: 10pt 24pt 8pt !important;
+      }
+      body:not(.color-print) .header-top { gap: 16pt !important; }
+      body:not(.color-print) .header-name-block h1 {
+        font-size: 19pt !important;
+        color: #000 !important;
+        line-height: 1.1 !important;
+      }
+      body:not(.color-print) .role-subtitle {
+        font-size: 8.5pt !important;
+        color: #333 !important;
+        margin-top: 3pt !important;
+      }
+      body:not(.color-print) .contact-item { font-size: 8pt !important; }
+      body:not(.color-print) .contact-key,
+      body:not(.color-print) .contact-sep { color: #555 !important; }
+      body:not(.color-print) .headline-stats {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8pt !important;
+        margin-top: 10pt !important;
+      }
+      body:not(.color-print) .stat-card {
+        padding: 6pt 10pt !important;
+        border-left: 2pt solid #555 !important;
+      }
+      body:not(.color-print) .stat-value {
+        font-size: 12pt !important;
+        color: #000 !important;
+        font-weight: bold !important;
+      }
+      body:not(.color-print) .stat-sub,
+      body:not(.color-print) .stat-label {
+        color: #444 !important;
+        font-size: 7pt !important;
+      }
+
+      /* ── main body layout ── */
+      body:not(.color-print) .cv-body {
+        grid-template-columns: 1fr !important;
+        padding: 8pt 24pt 10pt !important;
+        gap: 0 !important;
+      }
+
+      /* ── section headers ── */
+      body:not(.color-print) .section-header {
+        margin-top: 10pt !important;
+        margin-bottom: 6pt !important;
+      }
+      body:not(.color-print) .section-header.first { margin-top: 0 !important; }
+      body:not(.color-print) .section-prefix { color: #444 !important; }
+      body:not(.color-print) .section-title {
+        font-size: 8pt !important;
+        color: #000 !important;
+        font-weight: bold !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+      }
+
+      /* ── summary ── */
+      body:not(.color-print) .summary-block {
+        font-size: 9pt !important;
+        line-height: 1.45 !important;
+        color: #111 !important;
+        border-left: 2pt solid #666 !important;
+        padding: 5pt 10pt !important;
+      }
+
+      /* ── experience ── */
+      body:not(.color-print) .experience-card {
+        border-left: 2pt solid #888 !important;
+        margin-bottom: 5pt !important;
+        padding: 4pt 8pt !important;
+      }
+      body:not(.color-print) .exp-company {
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+      body:not(.color-print) .exp-company {
+        font-size: 9pt !important;
+        font-weight: bold !important;
+        color: #000 !important;
+        margin-bottom: 1pt !important;
+      }
+      body:not(.color-print) .exp-role {
+        font-size: 9pt !important;
+        font-style: italic !important;
+        color: #222 !important;
+        margin-bottom: 1pt !important;
+      }
+      body:not(.color-print) .exp-meta {
+        font-size: 7.5pt !important;
+        color: #555 !important;
+        margin-bottom: 3pt !important;
+      }
+      body:not(.color-print) .exp-dates,
+      body:not(.color-print) .exp-location { font-size: 7.5pt !important; color: #555 !important; }
+      body:not(.color-print) .exp-bullets { margin-top: 2pt !important; }
+      body:not(.color-print) .exp-bullets li {
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+        color: #111 !important;
+        margin-bottom: 1pt !important;
+      }
+      body:not(.color-print) .bullet-arrow { color: #444 !important; margin-right: 3pt !important; }
+
+      /* ── skills: 2-column compact ── */
+      body:not(.color-print) .skills-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4pt 20pt !important;
+      }
+      body:not(.color-print) .skills-category { margin-bottom: 4pt !important; }
+      body:not(.color-print) .skills-cat-label {
+        font-size: 7pt !important;
+        color: #333 !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.06em !important;
+        margin-bottom: 3pt !important;
+        border-bottom: 0.5pt solid #ccc !important;
+        padding-bottom: 1pt !important;
+      }
+      body:not(.color-print) .skill-item { margin-bottom: 2pt !important; }
+      body:not(.color-print) .skill-label-row { margin-bottom: 1pt !important; }
+      body:not(.color-print) .skill-name,
+      body:not(.color-print) .skill-pct {
+        font-size: 8pt !important;
+        color: #111 !important;
+      }
+      body:not(.color-print) .skill-bar { display: none !important; }
+      body:not(.color-print) .skill-fill { display: none !important; }
+      body:not(.color-print) .skill-pct {
+        font-size: 7pt !important;
+        color: #666 !important;
+      }
+
+      /* ── tools ── */
+      body:not(.color-print) .tools-list { gap: 4pt !important; }
+      body:not(.color-print) .tool-tag {
+        font-size: 7.5pt !important;
+        color: #333 !important;
+        border-color: #999 !important;
+        padding: 1.5pt 5pt !important;
+      }
+
+      /* ── education ── */
+      body:not(.color-print) .education-card { padding: 5pt 8pt !important; }
+      body:not(.color-print) .edu-institution { font-size: 7.5pt !important; color: #444 !important; }
+      body:not(.color-print) .edu-degree { font-size: 9pt !important; color: #000 !important; }
+      body:not(.color-print) .edu-details,
+      body:not(.color-print) .edu-grad { font-size: 8pt !important; color: #444 !important; }
+
+      /* ── languages ── */
+      body:not(.color-print) .lang-name,
+      body:not(.color-print) .lang-level { font-size: 8.5pt !important; color: #111 !important; }
+      body:not(.color-print) .star.lit { background: #555 !important; }
+      body:not(.color-print) .star { width: 8pt !important; height: 8pt !important; }
+
+      /* ── override screen-only spacings not yet explicitly reset ── */
+      body:not(.color-print) .exp-bullets {
+        margin-top: 3pt !important;
+        gap: 2pt !important;
+      }
+      body:not(.color-print) .exp-role { margin-top: 0 !important; }
+      body:not(.color-print) .language-card {
+        padding: 4pt 8pt !important;
+        margin-bottom: 3pt !important;
+      }
+      body:not(.color-print) .lang-stars { gap: 3pt !important; }
+    }
+
+    /* ========== PRINT: COLOR MODE ========== */
+    @media print {
+      html:has(body.color-print) {
+        font-size: 9pt !important;
+      }
+
+      body.color-print {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+      }
+
+      body.color-print * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* ── hide interactive / decorative ── */
+      body.color-print .print-buttons-row,
+      body.color-print .cv-header::before,
+      body.color-print .stat-card::after,
+      body.color-print .exp-status,
+      body.color-print .exp-description { display: none !important; }
+
+      /* ── header: tight ── */
+      body.color-print .cv-header { padding: 10pt 24pt 8pt !important; }
+      body.color-print .header-top { gap: 16pt !important; }
+      body.color-print .header-name-block h1 {
+        font-size: 19pt !important;
+        line-height: 1.1 !important;
+      }
+      body.color-print .role-subtitle { font-size: 8.5pt !important; margin-top: 3pt !important; }
+      body.color-print .contact-item { font-size: 8pt !important; }
+      body.color-print .headline-stats {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8pt !important;
+        margin-top: 10pt !important;
+      }
+      body.color-print .stat-card { padding: 6pt 10pt !important; }
+      body.color-print .stat-value { font-size: 12pt !important; }
+      body.color-print .stat-sub,
+      body.color-print .stat-label { font-size: 7pt !important; }
+
+      /* ── main layout ── */
+      body.color-print .cv-body {
+        grid-template-columns: 1fr !important;
+        padding: 8pt 24pt 10pt !important;
+        gap: 0 !important;
+      }
+
+      /* ── section headers ── */
+      body.color-print .section-header {
+        margin-top: 10pt !important;
+        margin-bottom: 6pt !important;
+      }
+      body.color-print .section-header.first { margin-top: 0 !important; }
+      body.color-print .section-title { font-size: 8pt !important; }
+
+      /* ── summary ── */
+      body.color-print .summary-block {
+        font-size: 9pt !important;
+        line-height: 1.45 !important;
+        padding: 5pt 10pt !important;
+      }
+
+      /* ── experience ── */
+      body.color-print .experience-card {
+        margin-bottom: 5pt !important;
+        padding: 4pt 8pt !important;
+      }
+      body.color-print .exp-company {
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+      body.color-print .exp-company { font-size: 9pt !important; margin-bottom: 1pt !important; }
+      body.color-print .exp-role { font-size: 9pt !important; margin-bottom: 1pt !important; }
+      body.color-print .exp-meta { font-size: 7.5pt !important; margin-bottom: 3pt !important; }
+      body.color-print .exp-bullets { margin-top: 2pt !important; }
+      body.color-print .exp-bullets li {
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1pt !important;
+      }
+
+      /* ── skills: 2-column compact ── */
+      body.color-print .skills-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4pt 20pt !important;
+      }
+      body.color-print .skills-category { margin-bottom: 4pt !important; }
+      body.color-print .skills-cat-label {
+        font-size: 7pt !important;
+        margin-bottom: 3pt !important;
+        padding-bottom: 1pt !important;
+      }
+      body.color-print .skill-item { margin-bottom: 2pt !important; }
+      body.color-print .skill-label-row { margin-bottom: 1pt !important; }
+      body.color-print .skill-name,
+      body.color-print .skill-pct { font-size: 8pt !important; }
+      body.color-print .skill-bar { display: none !important; }
+      body.color-print .skill-fill { display: none !important; }
+      body.color-print .skill-pct { font-size: 7pt !important; }
+
+      /* ── tools ── */
+      body.color-print .tools-list { gap: 4pt !important; }
+      body.color-print .tool-tag { font-size: 7.5pt !important; padding: 1.5pt 5pt !important; }
+
+      /* ── education ── */
+      body.color-print .education-card { padding: 5pt 8pt !important; }
+      body.color-print .edu-institution { font-size: 7.5pt !important; }
+      body.color-print .edu-degree { font-size: 9pt !important; }
+      body.color-print .edu-details,
+      body.color-print .edu-grad { font-size: 8pt !important; }
+
+      /* ── languages ── */
+      body.color-print .lang-name,
+      body.color-print .lang-level { font-size: 8.5pt !important; }
+      body.color-print .star { width: 8pt !important; height: 8pt !important; }
+
+      /* ── override screen-only spacings ── */
+      body.color-print .exp-bullets {
+        margin-top: 3pt !important;
+        gap: 2pt !important;
+      }
+      body.color-print .exp-role { margin-top: 0 !important; }
+      body.color-print .language-card {
+        padding: 4pt 8pt !important;
+        margin-bottom: 3pt !important;
+      }
+      body.color-print .lang-stars { gap: 3pt !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="cv-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="header-name-block">
+          <h1>Maor Kreicman</h1>
+          <div class="role-subtitle">// Sales Director · AdTech &amp; Programmatic · DACH Region</div>
+        </div>
+        <div class="header-contact">
+          <div class="contact-item">
+            <span class="contact-key">EMAIL</span><span class="contact-sep"> &gt; </span>
+            <span class="contact-val"><a href="mailto:maorkreichman@gmail.com">maorkreichman@gmail.com</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-key">PHONE</span><span class="contact-sep"> &gt; </span>
+            <span class="contact-val">+995-551-024-113</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-key">LOCATE</span><span class="contact-sep"> &gt; </span>
+            <span class="contact-val">Open to Hamburg / Relocation</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-key">LINKED</span><span class="contact-sep"> &gt; </span>
+            <span class="contact-val"><a href="https://www.linkedin.com/in/maor-kreichman/" target="_blank" rel="noopener">linkedin.com/in/maor-kreichman</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="headline-stats">
+        <div class="stat-card">
+          <div class="stat-value">12+</div>
+          <div class="stat-sub">Years</div>
+          <div class="stat-label">AdTech Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$10M</div>
+          <div class="stat-sub">Contributed</div>
+          <div class="stat-label">Annual Revenue</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8+</div>
+          <div class="stat-sub">Global</div>
+          <div class="stat-label">Markets Expanded</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">40+</div>
+          <div class="stat-sub">Members</div>
+          <div class="stat-label">Team Scaled</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PRINT BUTTONS ===== -->
+  <div class="print-buttons-row">
+    <button class="print-btn" onclick="window.print()">[ $ export --format=pdf ]</button>
+    <button class="print-btn" onclick="printWithColors()">[ $ export --format=pdf --color ]</button>
+  </div>
+
+  <!-- ===== MAIN BODY ===== -->
+  <div class="cv-body">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-main">
+
+      <!-- PROFESSIONAL SUMMARY -->
+      <div class="section-header first">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Professional Summary</span>
+      </div>
+      <div class="summary-block">
+        Programmatic advertising executive with 12+ years driving new business development, account expansion, and revenue growth across DSPs, SSPs, and real-time bidding (RTB) ecosystems. Co-founding VP at Persona.ly ($10M revenue, 8+ global markets) and founder of a proprietary DSP — bringing rare dual-side buy/sell fluency to advertiser, agency, and DSP partnerships in competitive digital advertising markets.
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="section-header">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Experience</span>
+      </div>
+
+      <!-- TEKMA -->
+      <div class="experience-card active">
+        <div class="exp-company">TEKMA</div>
+        <div class="exp-role">Advisor to CEO, Business Development</div>
+        <div class="exp-meta">
+          <span class="exp-dates">Feb 2025 – Present</span>
+          <span class="exp-location">Dubai (Remote from Tbilisi, Georgia)</span>
+          <span class="exp-status active-badge">Active</span>
+        </div>
+        <div class="exp-description">Strategic BD advisory role focused on data partnerships and programmatic audience infrastructure for a fast-growing data management platform.</div>
+        <ul class="exp-bullets">
+          <li><span class="bullet-arrow">&gt;</span><span>Established mobile SDK and location intelligence data partnerships, expanding programmatic audience targeting capabilities and data monetization for AdTech clients.</span></li>
+          <li><span class="bullet-arrow">&gt;</span><span>Led C-suite data licensing negotiations with leading AdTech companies, opening new revenue streams and commercial relationships across international markets.</span></li>
+        </ul>
+      </div>
+
+      <!-- THRIVESTATE -->
+      <div class="experience-card completed">
+        <div class="exp-company">THRIVESTATE</div>
+        <div class="exp-role">Strategic Advisor &amp; Interim COO</div>
+        <div class="exp-meta">
+          <span class="exp-dates">Nov 2024 – Jan 2025</span>
+          <span class="exp-location">Dubai</span>
+          <span class="exp-status completed-badge">Completed</span>
+        </div>
+        <div class="exp-description">Interim executive engagement delivering cross-departmental operational restructuring and stakeholder alignment across a multi-office international group.</div>
+        <ul class="exp-bullets">
+          <li><span class="bullet-arrow">&gt;</span><span>Delivered C-suite stakeholder audits and P&amp;L framework design across multiple international offices, applying the data-informed commercial strategy central to enterprise AdTech sales.</span></li>
+        </ul>
+      </div>
+
+      <!-- OMNI VERSE / DEFINITIO -->
+      <div class="experience-card completed">
+        <div class="exp-company">OMNI VERSE / DEFINITIO</div>
+        <div class="exp-role">Founder &amp; Director, DSP Unit</div>
+        <div class="exp-meta">
+          <span class="exp-dates">Jul 2022 – Jan 2025</span>
+          <span class="exp-location">Dubai, UAE</span>
+          <span class="exp-status completed-badge">Completed</span>
+        </div>
+        <div class="exp-description">Founded Definitio, the proprietary DSP unit of Omni Verse, building deep programmatic buy-side expertise that uniquely positions SSP sales conversations with advertisers and agencies.</div>
+        <ul class="exp-bullets">
+          <li><span class="bullet-arrow">&gt;</span><span>Built a DSP from inception — RTB auction strategy, programmatic campaign execution, advertiser and agency partnerships, and full GTM — developing rare dual-side buy/sell programmatic fluency.</span></li>
+          <li><span class="bullet-arrow">&gt;</span><span>Onboarded 8 advertiser and agency clients with tailored programmatic strategies, driving new business development from zero in competitive mobile advertising markets.</span></li>
+          <li><span class="bullet-arrow">&gt;</span><span>Reduced operational costs 30% while scaling client partnerships, balancing new business acquisition with account expansion and long-term retention.</span></li>
+        </ul>
+      </div>
+
+      <!-- PERSONA.LY -->
+      <div class="experience-card legendary">
+        <div class="exp-company">PERSONA.LY</div>
+        <div class="exp-role">Co-Founding Team Member &amp; VP International Expansion</div>
+        <div class="exp-meta">
+          <span class="exp-dates">May 2014 – Jun 2022</span>
+          <span class="exp-location">Israel</span>
+          <span class="exp-status legendary-badge">8 Years</span>
+        </div>
+        <div class="exp-description">Founding commercial team member who scaled Persona.ly to $10M annual revenue and 40+ employees — deeply embedded in the DSP-agency-publisher programmatic value chain.</div>
+        <ul class="exp-bullets">
+          <li><span class="bullet-arrow">&gt;</span><span>Drove $10M in annual programmatic advertising revenue as founding VP, scaling Persona.ly to a global mobile UA leader with 40+ employees and partnerships across advertisers, agencies, and DSPs.</span></li>
+          <li><span class="bullet-arrow">&gt;</span><span>Led market entry into 8+ territories — establishing agency relationships and programmatic GTM strategies across USA, APAC, and Eastern Europe, including DACH-adjacent markets.</span></li>
+          <li><span class="bullet-arrow">&gt;</span><span>Evangelized the industry's first Playable Ad format to senior advertiser and agency clients, demonstrating ability to introduce innovative programmatic solutions to C-suite decision-makers.</span></li>
+        </ul>
+      </div>
+
+    </div>
+    <!-- END LEFT COLUMN -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-side">
+
+      <!-- SKILLS: BUSINESS DEVELOPMENT & REVENUE -->
+      <div class="section-header first">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Skills</span>
+      </div>
+
+      <div class="skills-grid">
+      <div class="skills-category">
+        <div class="skills-cat-label">Business Development &amp; Revenue</div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">New Business Development</span>
+            <span class="skill-pct">94%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="94" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Account Expansion</span>
+            <span class="skill-pct">91%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="91" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Revenue Growth</span>
+            <span class="skill-pct">96%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="96" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Strategic Partnerships</span>
+            <span class="skill-pct">93%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="93" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">B2B Sales</span>
+            <span class="skill-pct">89%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="89" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Client Acquisition</span>
+            <span class="skill-pct">86%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="86" style="width:0"></div></div>
+        </div>
+      </div>
+
+      <!-- SKILLS: ADTECH & PROGRAMMATIC -->
+      <div class="skills-category">
+        <div class="skills-cat-label">AdTech &amp; Programmatic</div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Programmatic Advertising</span>
+            <span class="skill-pct">96%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="96" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Real-Time Bidding (RTB)</span>
+            <span class="skill-pct">91%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="91" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">DSP &amp; SSP Ecosystem</span>
+            <span class="skill-pct">93%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="93" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Mobile Advertising</span>
+            <span class="skill-pct">89%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="89" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Audience Segmentation</span>
+            <span class="skill-pct">84%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="84" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Data Monetization</span>
+            <span class="skill-pct">82%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="82" style="width:0"></div></div>
+        </div>
+      </div>
+
+      <!-- SKILLS: LEADERSHIP & STAKEHOLDER -->
+      <div class="skills-category">
+        <div class="skills-cat-label">Leadership &amp; Stakeholder</div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">C-Suite Engagement</span>
+            <span class="skill-pct">91%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="91" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">International Expansion</span>
+            <span class="skill-pct">93%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="93" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Go-to-Market Strategy</span>
+            <span class="skill-pct">89%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="89" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Market Analysis</span>
+            <span class="skill-pct">86%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="86" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Cross-functional Leadership</span>
+            <span class="skill-pct">84%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="84" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Team Building</span>
+            <span class="skill-pct">81%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="81" style="width:0"></div></div>
+        </div>
+      </div>
+
+      <!-- SKILLS: DATA & STRATEGY -->
+      <div class="skills-category">
+        <div class="skills-cat-label">Data &amp; Strategy</div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Data-Informed Commercial Strategy</span>
+            <span class="skill-pct">86%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="86" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">P&amp;L Management</span>
+            <span class="skill-pct">83%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="83" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Competitive Analysis</span>
+            <span class="skill-pct">84%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="84" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Budget Forecasting</span>
+            <span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="80" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Contract &amp; Legal Management</span>
+            <span class="skill-pct">78%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="78" style="width:0"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label-row">
+            <span class="skill-name">Process Optimization</span>
+            <span class="skill-pct">76%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="76" style="width:0"></div></div>
+        </div>
+      </div>
+      </div><!-- end skills-grid -->
+
+      <!-- TOOLS -->
+      <div class="section-header">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Tools &amp; Platforms</span>
+      </div>
+      <div class="tools-list">
+        <span class="tool-tag">Programmatic Platforms</span>
+        <span class="tool-tag">DSP/SSP Technology</span>
+        <span class="tool-tag">Data Management Platforms</span>
+        <span class="tool-tag">Monday.com</span>
+        <span class="tool-tag">WorkOS</span>
+        <span class="tool-tag">Claude Code</span>
+        <span class="tool-tag">Visual Studio Code</span>
+        <span class="tool-tag">AI Tools</span>
+        <span class="tool-tag">Microsoft Excel</span>
+        <span class="tool-tag">Microsoft PowerPoint</span>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="section-header">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Education</span>
+      </div>
+      <div class="education-card">
+        <div class="edu-institution">The College of Management Academic Studies</div>
+        <div class="edu-degree">Bachelor of Arts (BA), Business Management</div>
+        <div class="edu-details">Major: Marketing &nbsp;|&nbsp; Minor: Information Systems</div>
+        <div class="edu-details" style="margin-top:3px; color: var(--text-dim); font-size:0.82rem;">Rishon LeZion, Israel</div>
+        <div class="edu-grad">// Graduated: June 2012</div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="section-header">
+        <span class="section-prefix">&gt;&gt;</span>
+        <span class="section-title">Languages</span>
+      </div>
+
+      <div class="language-card">
+        <div>
+          <div class="lang-name">English</div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-stars">
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+        </div>
+      </div>
+
+      <div class="language-card">
+        <div>
+          <div class="lang-name">Hebrew</div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-stars">
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+          <div class="star lit"></div>
+        </div>
+      </div>
+
+      <div class="language-card">
+        <div>
+          <div class="lang-name">Russian</div>
+          <div class="lang-level">Beginner</div>
+        </div>
+        <div class="lang-stars">
+          <div class="star lit"></div>
+          <div class="star"></div>
+          <div class="star"></div>
+          <div class="star"></div>
+          <div class="star"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END RIGHT COLUMN -->
+
+  </div>
+  <!-- END CV BODY -->
+
+  <script>
+    function setAllBarWidths() {
+      document.querySelectorAll('[data-pct]').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    }
+
+    function printWithColors() {
+      document.body.classList.add('color-print');
+      setAllBarWidths();
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => document.body.classList.remove('color-print'), 1000);
+      }, 200);
+    }
+
+    if (location.search.includes('color')) {
+      document.body.classList.add('color-print');
+      setAllBarWidths();
+    }
+
+    // IntersectionObserver for scroll-triggered bar animation
+    (function() {
+      var observed = new Set();
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !observed.has(entry.target)) {
+            observed.add(entry.target);
+            var fills = entry.target.querySelectorAll('[data-pct]');
+            fills.forEach(function(fill) {
+              requestAnimationFrame(function() {
+                fill.style.width = fill.dataset.pct + '%';
+              });
+            });
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.skills-category').forEach(function(cat) {
+        observer.observe(cat);
+      });
+    })();
+  </script>
+
+</body>
+</html>
