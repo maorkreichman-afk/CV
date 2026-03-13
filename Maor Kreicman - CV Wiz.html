@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maor Kreicman — CV | Wiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── VARIABLES ─────────────────────────────────── */
+  :root {
+    --bg:        #060b14;
+    --surface:   #0d1526;
+    --surface2:  #111d33;
+    --border:    #1d2d4a;
+    --border-glow: #2a4a7f;
+    --cyan:      #38bdf8;
+    --green:     #4ade80;
+    --amber:     #fbbf24;
+    --red:       #f87171;
+    --text:      #e2e8f0;
+    --muted:     #94a3b8;
+    --dim:       #64748b;
+    --mono:      'JetBrains Mono', monospace;
+    --sans:      'Syne', sans-serif;
+  }
+
+  /* ─── RESET ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ─── PAGE BASE ─────────────────────────────────── */
+  @page { margin: 9mm 14mm; }
+
+  html { font-size: 16px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* ─── SCAN LINES OVERLAY ─────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.06) 2px,
+      rgba(0,0,0,0.06) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── WRAPPER ────────────────────────────────────── */
+  .cv-wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────── */
+  .cv-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .cv-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+
+  .header-id {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--cyan);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .cv-name {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .cv-name span {
+    color: var(--cyan);
+  }
+
+  .cv-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .cv-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .cv-meta a { color: var(--cyan); text-decoration: none; }
+
+  /* ─── STATUS PANEL (right side of header) ─────────── */
+  .status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    padding-top: 28px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse-dot 2s ease-in-out infinite; }
+  .dot-cyan  { background: var(--cyan);  box-shadow: 0 0 6px var(--cyan); }
+  .dot-amber { background: var(--amber); }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── SECTION LABEL ──────────────────────────────── */
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .section-label::before {
+    content: '//';
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--cyan);
+    opacity: 0.7;
+  }
+
+  .section-label h2 {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-glow), transparent);
+  }
+
+  /* ─── SUMMARY ────────────────────────────────────── */
+  .summary-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    border-radius: 4px;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .summary-box::before {
+    content: '> ';
+    font-family: var(--mono);
+    color: var(--cyan);
+    opacity: 0.6;
+  }
+
+  /* ─── STATS BAR ──────────────────────────────────── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--cyan);
+    opacity: 0.5;
+  }
+
+  .stat-card:nth-child(2)::before { background: var(--green); }
+  .stat-card:nth-child(3)::before { background: var(--amber); }
+  .stat-card:nth-child(4)::before { background: var(--cyan); }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-card:nth-child(2) .stat-value { color: var(--green); }
+  .stat-card:nth-child(3) .stat-value { color: var(--amber); }
+
+  .stat-label {
+    font-size: 0.62rem;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--mono);
+  }
+
+  /* ─── TWO-COLUMN LAYOUT ──────────────────────────── */
+  .cv-body {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ─── EXPERIENCE ─────────────────────────────────── */
+  .experience-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .experience-card:hover { border-color: var(--border-glow); }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    gap: 12px;
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .exp-dates {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .exp-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .exp-location {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+
+  .exp-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    list-style: none;
+  }
+
+  .exp-bullets li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 0.7rem;
+    top: 2px;
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────── */
+  .skills-category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .skills-cat-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  .skill-name {
+    font-size: 0.78rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .skill-pct {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--dim);
+    flex-shrink: 0;
+  }
+
+  .skill-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    min-width: 40px;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    border-radius: 2px;
+    width: 0;
+    transition: width 1s ease;
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────── */
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .edu-degree {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .edu-detail {
+    font-size: 0.75rem;
+    color: var(--dim);
+    font-family: var(--mono);
+  }
+
+  /* ─── LANGUAGES ──────────────────────────────────── */
+  .language-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .lang-name {
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .lang-level {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── TOOLS ──────────────────────────────────────── */
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--cyan);
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.25);
+    border-radius: 3px;
+    padding: 3px 8px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* ─── PRINT BUTTONS ──────────────────────────────── */
+  .print-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 28px 0 16px;
+  }
+
+  .btn-print {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 3px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ats {
+    color: var(--text);
+    border-color: var(--border-glow);
+    background: transparent;
+  }
+
+  .btn-ats:hover {
+    background: rgba(56,189,248,0.08);
+    border-color: var(--cyan);
+  }
+
+  .btn-color {
+    color: var(--bg);
+    background: var(--cyan);
+    border-color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .btn-color:hover {
+    background: #7dd3fc;
+  }
+
+  /* ─── PRINT: ATS MODE ────────────────────────────── */
+  @media print {
+    body::before { display: none; }
+    .print-controls { display: none !important; }
+    .status-panel { display: none !important; }
+
+    html:not(:has(body.color-print)) {
+      font-size: 9pt !important;
+    }
+
+    body:not(.color-print) {
+      background: #fff !important;
+      color: #111 !important;
+      font-size: 9pt !important;
+      line-height: 1.4 !important;
+    }
+
+    body:not(.color-print) .cv-wrapper {
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+
+    body:not(.color-print) .cv-header {
+      border-bottom: 1px solid #ccc !important;
+      padding-bottom: 10pt !important;
+      margin-bottom: 10pt !important;
+      display: block !important;
+    }
+
+    body:not(.color-print) .cv-header::after { display: none !important; }
+
+    body:not(.color-print) .cv-name {
+      font-size: 18pt !important;
+      color: #111 !important;
+    }
+
+    body:not(.color-print) .cv-name span { color: #111 !important; }
+    body:not(.color-print) .cv-title { color: #444 !important; }
+    body:not(.color-print) .header-id { color: #444 !important; }
+    body:not(.color-print) .cv-meta { color: #444 !important; }
+    body:not(.color-print) .cv-meta a { color: #333 !important; }
+
+    body:not(.color-print) .stats-bar {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 4pt 8pt !important;
+      margin-bottom: 10pt !important;
+    }
+
+    body:not(.color-print) .stat-card {
+      background: #f5f5f5 !important;
+      border-color: #ddd !important;
+      padding: 5pt 6pt !important;
+    }
+
+    body:not(.color-print) .stat-card::before { display: none !important; }
+    body:not(.color-print) .stat-value { color: #111 !important; font-size: 12pt !important; }
+    body:not(.color-print) .stat-label { color: #555 !important; }
+
+    body:not(.color-print) .summary-box {
+      background: #f8f8f8 !important;
+      border-color: #ccc !important;
+      border-left-color: #555 !important;
+      color: #111 !important;
+      padding: 7pt 10pt !important;
+    }
+
+    body:not(.color-print) .section-label h2 { color: #111 !important; }
+    body:not(.color-print) .section-label::before { color: #555 !important; }
+    body:not(.color-print) .section-label::after { background: #ccc !important; }
+
+    body:not(.color-print) .cv-body {
+      grid-template-columns: 1fr !important;
+      gap: 0 !important;
+    }
+
+    body:not(.color-print) .skills-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 4pt 18pt !important;
+    }
+
+    body:not(.color-print) .skills-category {
+      background: #f8f8f8 !important;
+      border-color: #ddd !important;
+      padding: 5pt 8pt !important;
+      margin-bottom: 5pt !important;
+    }
+
+    body:not(.color-print) .skills-cat-title { color: #333 !important; border-color: #ddd !important; }
+    body:not(.color-print) .skill-name { color: #111 !important; }
+    body:not(.color-print) .skill-pct { color: #555 !important; }
+    body:not(.color-print) .skill-bar,
+    body:not(.color-print) .skill-fill { display: none !important; }
+
+    body:not(.color-print) .experience-card {
+      background: transparent !important;
+      border-color: #ddd !important;
+      padding: 5pt 8pt !important;
+      margin-bottom: 5pt !important;
+    }
+
+    body:not(.color-print) .exp-company { color: #111 !important; }
+    body:not(.color-print) .exp-title { color: #111 !important; }
+    body:not(.color-print) .exp-location { color: #555 !important; margin-bottom: 5pt !important; }
+    body:not(.color-print) .exp-dates { color: #555 !important; }
+    body:not(.color-print) .exp-bullets { gap: 2pt !important; margin-top: 2pt !important; }
+    body:not(.color-print) .exp-bullets li { color: #333 !important; }
+    body:not(.color-print) .exp-bullets li::before { color: #555 !important; }
+    body:not(.color-print) .exp-company { break-after: avoid !important; }
+
+    body:not(.color-print) .edu-card {
+      background: #f8f8f8 !important;
+      border-color: #ddd !important;
+      border-left-color: #555 !important;
+      padding: 6pt 8pt !important;
+    }
+
+    body:not(.color-print) .edu-school { color: #333 !important; }
+    body:not(.color-print) .edu-degree { color: #111 !important; }
+    body:not(.color-print) .edu-detail { color: #555 !important; }
+
+    body:not(.color-print) .language-card {
+      background: #f8f8f8 !important;
+      border-color: #ddd !important;
+      padding: 4pt 8pt !important;
+      margin-bottom: 4pt !important;
+    }
+
+    body:not(.color-print) .lang-name { color: #111 !important; }
+    body:not(.color-print) .lang-level { color: #555 !important; }
+
+    body:not(.color-print) .tools-grid { gap: 3pt 5pt !important; }
+    body:not(.color-print) .tool-tag {
+      color: #333 !important;
+      background: #f0f0f0 !important;
+      border-color: #ccc !important;
+    }
+
+    /* ─── PRINT: COLOR MODE ─────────────────────────── */
+    html:has(body.color-print) {
+      font-size: 9pt !important;
+    }
+
+    body.color-print {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      font-size: 9pt !important;
+      line-height: 1.4 !important;
+    }
+
+    body.color-print * {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    body.color-print .cv-wrapper {
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+
+    body.color-print .cv-header {
+      padding-bottom: 10pt !important;
+      margin-bottom: 10pt !important;
+    }
+
+    body.color-print .stats-bar {
+      gap: 4pt 8pt !important;
+      margin-bottom: 10pt !important;
+    }
+
+    body.color-print .stat-card {
+      padding: 5pt 6pt !important;
+    }
+
+    body.color-print .stat-value { font-size: 12pt !important; }
+
+    body.color-print .summary-box {
+      padding: 7pt 10pt !important;
+    }
+
+    body.color-print .cv-body {
+      grid-template-columns: 1fr !important;
+      gap: 0 !important;
+    }
+
+    body.color-print .skills-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 4pt 18pt !important;
+    }
+
+    body.color-print .skills-category {
+      padding: 5pt 8pt !important;
+      margin-bottom: 5pt !important;
+    }
+
+    body.color-print .skill-bar,
+    body.color-print .skill-fill { display: none !important; }
+
+    body.color-print .experience-card {
+      padding: 5pt 8pt !important;
+      margin-bottom: 5pt !important;
+    }
+
+    body.color-print .exp-location { margin-bottom: 5pt !important; }
+    body.color-print .exp-bullets { gap: 2pt !important; margin-top: 2pt !important; }
+    body.color-print .exp-company { break-after: avoid !important; }
+
+    body.color-print .language-card {
+      padding: 4pt 8pt !important;
+      margin-bottom: 4pt !important;
+    }
+
+    body.color-print .tools-grid { gap: 3pt 5pt !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cv-wrapper">
+
+  <!-- HEADER -->
+  <header class="cv-header">
+    <div>
+      <div class="header-id">AGENT_ID://MK-EMEA-CHANNELS-2026</div>
+      <h1 class="cv-name">MAOR <span>KREICMAN</span></h1>
+      <div class="cv-title">VP Channels &amp; Alliances · EMEA Partner Ecosystem · BD Leadership</div>
+      <div class="cv-meta">
+        <span>Tbilisi, Georgia · Open to Relocation</span>
+        <span>+995-551-024-113</span>
+        <a href="mailto:maorkreichman@gmail.com">maorkreichman@gmail.com</a>
+        <a href="https://www.linkedin.com/in/maor-kreichman/">linkedin.com/in/maor-kreichman</a>
+      </div>
+    </div>
+    <div class="status-panel">
+      <div class="status-item"><div class="status-dot dot-green"></div> AVAILABLE · EMEA</div>
+      <div class="status-item"><div class="status-dot dot-cyan"></div> 12+ YRS CHANNEL EXP</div>
+      <div class="status-item"><div class="status-dot dot-amber"></div> 8+ MARKETS EXPANDED</div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-value">12+</div>
+      <div class="stat-label">Years BD &amp; Channel</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">8+</div>
+      <div class="stat-label">EMEA &amp; Global Markets</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$10M</div>
+      <div class="stat-label">Annual Partner Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">40+</div>
+      <div class="stat-label">Team Members Scaled</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section">
+    <div class="section-label"><h2>PROFESSIONAL SUMMARY</h2></div>
+    <div class="summary-box">
+      International channel and alliances leader with 12+ years building high-growth partner ecosystems across EMEA and global markets — driving strategic alliances, channel partner programs, and C-suite vendor relationships that translate to measurable revenue. Co-founding team member at Persona.ly, scaling partner networks across 8+ markets and contributing to $10M in annual sales; founder of a proprietary DSP unit, managing the full partner lifecycle from acquisition to retention.
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div class="cv-body">
+
+    <!-- LEFT: EXPERIENCE -->
+    <div>
+      <div class="section">
+        <div class="section-label"><h2>WORK EXPERIENCE</h2></div>
+
+        <!-- TEKMA -->
+        <div class="experience-card">
+          <div class="exp-header">
+            <div class="exp-company">TEKMA</div>
+            <div class="exp-dates">Feb 2025 – Present</div>
+          </div>
+          <div class="exp-title">Advisor to CEO, Business Development</div>
+          <div class="exp-location">Dubai · Remote</div>
+          <ul class="exp-bullets">
+            <li>Built strategic channel partnerships with mobile SDK and location intelligence providers, expanding Tekma's alliance network and opening new revenue channels across international markets.</li>
+            <li>Represented Tekma in C-suite negotiations with technology partners — driving commercial alliance agreements, technical integration discussions, and multi-party channel deals.</li>
+          </ul>
+        </div>
+
+        <!-- THRIVESTATE -->
+        <div class="experience-card">
+          <div class="exp-header">
+            <div class="exp-company">THRIVESTATE</div>
+            <div class="exp-dates">Nov 2024 – Jan 2025</div>
+          </div>
+          <div class="exp-title">Strategic Advisor &amp; Interim COO</div>
+          <div class="exp-location">Dubai</div>
+          <ul class="exp-bullets">
+            <li>Executed cross-departmental stakeholder alignment across multiple international offices, establishing scalable partnership frameworks and vendor management workflows that improved operational consistency.</li>
+          </ul>
+        </div>
+
+        <!-- OMNI VERSE / DEFINITIO -->
+        <div class="experience-card">
+          <div class="exp-header">
+            <div class="exp-company">OMNI VERSE / DEFINITIO</div>
+            <div class="exp-dates">Jul 2022 – Jan 2025</div>
+          </div>
+          <div class="exp-title">Founder &amp; Director, DSP Unit</div>
+          <div class="exp-location">Dubai, UAE</div>
+          <ul class="exp-bullets">
+            <li>Founded Definitio DSP from scratch — built the full partner and client channel, onboarding 8 strategic partners through tailored go-to-market execution and driving their first successful campaigns.</li>
+            <li>Developed channel partner strategies and alliance frameworks that expanded market penetration, reduced operational costs by 30%, and established scalable revenue growth through indirect channels.</li>
+            <li>Managed P&amp;L, partner budget allocation, and revenue forecasting — aligning partner investments with business sustainability and long-term channel development goals.</li>
+          </ul>
+        </div>
+
+        <!-- PERSONA.LY -->
+        <div class="experience-card">
+          <div class="exp-header">
+            <div class="exp-company">PERSONA.LY</div>
+            <div class="exp-dates">May 2014 – Jun 2022</div>
+          </div>
+          <div class="exp-title">Co-Founding Team Member &amp; VP International Expansion</div>
+          <div class="exp-location">Israel · 8 Years</div>
+          <ul class="exp-bullets">
+            <li>Scaled EMEA and global partner ecosystem across 8+ markets — establishing regional alliance networks, local channel partner programs, and market-entry strategies in USA, Russia, Japan, South Korea, China, Indonesia, and India.</li>
+            <li>Built and mentored a cross-functional partner organization (BD, account management, SDRs) that generated $1.5M in new revenue streams in 2021, contributing to $10M in annual partner sales.</li>
+            <li>Executed 3 major channel strategy pivots in response to market disruption — restructuring partner KPIs, alliance frameworks, and indirect sales programs to maintain growth and competitive positioning.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SKILLS + EDUCATION + LANGUAGES + TOOLS -->
+    <div>
+      <div class="section">
+        <div class="section-label"><h2>SKILLS</h2></div>
+        <div class="skills-grid">
+
+          <div class="skills-category">
+            <div class="skills-cat-title">Channel &amp; Alliances</div>
+            <div class="skill-item">
+              <span class="skill-name">Channel Partner Programs</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="96"></div></div>
+              <span class="skill-pct">96%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Strategic Alliances</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="95"></div></div>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Partner Ecosystem Mgmt</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="94"></div></div>
+              <span class="skill-pct">94%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Alliance Development</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="93"></div></div>
+              <span class="skill-pct">93%</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <div class="skills-cat-title">Business Development</div>
+            <div class="skill-item">
+              <span class="skill-name">EMEA Expansion</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="97"></div></div>
+              <span class="skill-pct">97%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Revenue Growth</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="95"></div></div>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Go-to-Market Strategy</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="93"></div></div>
+              <span class="skill-pct">93%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">New Business Development</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="92"></div></div>
+              <span class="skill-pct">92%</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <div class="skills-cat-title">Leadership &amp; Strategy</div>
+            <div class="skill-item">
+              <span class="skill-name">Multi-national Team Leadership</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="94"></div></div>
+              <span class="skill-pct">94%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">C-Suite Stakeholder Mgmt</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="95"></div></div>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">P&amp;L Management</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="88"></div></div>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Cross-functional Leadership</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="92"></div></div>
+              <span class="skill-pct">92%</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <div class="skills-cat-title">SaaS &amp; Tech</div>
+            <div class="skill-item">
+              <span class="skill-name">SaaS Partner Programs</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="90"></div></div>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Cloud Security Ecosystem</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="82"></div></div>
+              <span class="skill-pct">82%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Data Partnerships</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="91"></div></div>
+              <span class="skill-pct">91%</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Market Analysis</span>
+              <div class="skill-bar"><div class="skill-fill" data-pct="89"></div></div>
+              <span class="skill-pct">89%</span>
+            </div>
+          </div>
+
+        </div><!-- end skills-grid -->
+      </div>
+
+      <!-- TOOLS -->
+      <div class="section">
+        <div class="section-label"><h2>TOOLS &amp; PLATFORMS</h2></div>
+        <div class="tools-grid">
+          <span class="tool-tag">Channel Partner Platforms</span>
+          <span class="tool-tag">SaaS / Cloud Ecosystems</span>
+          <span class="tool-tag">CRM &amp; Alliance Tools</span>
+          <span class="tool-tag">Monday.com</span>
+          <span class="tool-tag">WorkOS</span>
+          <span class="tool-tag">Claude Code</span>
+          <span class="tool-tag">Visual Studio Code</span>
+          <span class="tool-tag">AI Tools</span>
+          <span class="tool-tag">Microsoft Excel</span>
+          <span class="tool-tag">Microsoft PowerPoint</span>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="section">
+        <div class="section-label"><h2>EDUCATION</h2></div>
+        <div class="edu-card">
+          <div class="edu-school">College of Management Academic Studies</div>
+          <div class="edu-degree">BA, Business Management</div>
+          <div class="edu-detail">Major: Marketing · Minor: Information Systems · 2012</div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="section">
+        <div class="section-label"><h2>LANGUAGES</h2></div>
+        <div class="language-card">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="language-card">
+          <span class="lang-name">Hebrew</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="language-card">
+          <span class="lang-name">Russian</span>
+          <span class="lang-level">Beginner</span>
+        </div>
+      </div>
+
+    </div><!-- end right col -->
+  </div><!-- end cv-body -->
+
+  <!-- PRINT BUTTONS -->
+  <div class="print-controls">
+    <button class="btn-print btn-ats" onclick="window.print()">[ EXPORT ATS — WHITE ]</button>
+    <button class="btn-print btn-color" onclick="printWithColors()">[ EXPORT WITH COLORS ]</button>
+  </div>
+
+</div><!-- end cv-wrapper -->
+
+<script>
+  // Animate skill bars on load
+  document.querySelectorAll('[data-pct]').forEach(el => {
+    setTimeout(() => {
+      el.style.width = el.dataset.pct + '%';
+    }, 300);
+  });
+
+  function setAllBarWidths() {
+    document.querySelectorAll('[data-pct]').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  }
+
+  function printWithColors() {
+    document.body.classList.add('color-print');
+    setAllBarWidths();
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => document.body.classList.remove('color-print'), 1000);
+    }, 200);
+  }
+
+  // Auto-trigger color mode if ?color param present (for headless Chrome PDF)
+  if (location.search.includes('color')) {
+    document.body.classList.add('color-print');
+    setAllBarWidths();
+  }
+</script>
+
+</body>
+</html>
