@@ -933,6 +933,48 @@
       body.print-light .skill-fill.k { background: #8a5400 !important; }
       body.print-light .skill-fill.g { background: #0a6a5e !important; }
     }
+
+    /* ══════════════════════════════════════════
+       PRINT COMPACTION - fit two pages at any margin
+       The header laid .char-top out as a centred COLUMN, so the 96px
+       portrait sat alone on its own band with the full page width empty
+       beside it, and every label below it was centred with generous
+       margins. Measured 504px of page one before a single line of content
+       (the arcade version's header does the same job in 331px). Laying the
+       header out as a ROW - portrait left, identity right - hands that
+       height back to the quest log. Nothing is hidden or shrunk to
+       unreadable; the reclaimed space is the empty gutter beside the photo.
+       Last block in the sheet on purpose: it must win the cascade over the
+       two @media print blocks above it.
+    ══════════════════════════════════════════ */
+    @media print {
+      .char-header { padding: 9px 14px 8px !important; }
+      .char-top {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 14px !important;
+        text-align: left !important;
+      }
+      .char-portrait { width: 84px !important; height: 84px !important; flex: 0 0 84px !important; }
+      .char-info { flex: 1 1 auto !important; width: auto !important; text-align: left !important; }
+      .select-lbl { margin-bottom: 4px !important; letter-spacing: 3px !important; }
+      .char-name { font-size: 19px !important; line-height: 1.25 !important; margin-bottom: 4px !important; }
+      .char-class { margin-bottom: 6px !important; line-height: 1.6 !important; }
+      .status-bars { gap: 4px !important; align-items: stretch !important; }
+      .status-row { max-width: none !important; margin-bottom: 0 !important; }
+      .avail-badge { margin-top: 6px !important; }
+      .contact-row { justify-content: flex-start !important; margin-top: 7px !important; padding-top: 6px !important; gap: 2px 10px !important; }
+      .cstat { padding: 5px 4px !important; }
+
+      /* every panel gives back a couple of points of interior padding */
+      .rpg-box    { margin-bottom: 6px !important; }
+      .lore-body  { padding: 8px 14px !important; }
+      .skills-body{ padding: 8px 14px !important; gap: 7px 22px !important; }
+      .quest      { padding: 6px 14px !important; }
+      .edu-body   { padding: 7px 14px !important; }
+      .lang-grid  { padding: 7px 14px !important; }
+      .lang-card  { padding: 5px 4px !important; }
+    }
 </style>
 </head>
 <body>
